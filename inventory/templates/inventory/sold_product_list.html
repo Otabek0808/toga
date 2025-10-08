@@ -1,4 +1,6 @@
 {% extends 'inventory/base.html' %}
+{% load humanize %}
+
 {% block title %}Sotilgan mahsulotlar{% endblock %}
 {% block content %}
 <div class="container mt-4">
@@ -75,10 +77,10 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ sold.product.name }}</td>
-                <td>{{ sold.sold_price }} so‘m</td>
-                <td>{{ sold.product.cost_price }} so‘m</td>
+                <td>{{ sold.sold_price | intcomma }} so‘m</td>
+                <td>{{ sold.product.cost_price | intcomma }} so‘m</td>
                 <td class="{% if sold.profit > 0 %}text-success{% else %}text-danger{% endif %}">
-                    {{ sold.profit }} so‘m
+                    {{ sold.profit | intcomma }} so‘m
                 </td>
 
                 <td>{{ sold.sold_at|date:"d.m.Y H:i" }}</td>

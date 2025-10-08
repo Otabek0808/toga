@@ -1,4 +1,6 @@
 {% extends 'inventory/base.html' %}
+{% load humanize %}
+
 {% block title %}Mahsulotlar{% endblock %}
 {% block content %}
 <div class="container mt-4">
@@ -9,7 +11,6 @@
             <a href="{% url 'sold-product-list' %}" class="btn btn-dark me-2">📊 Sotilganlar statistikasi</a>
             <a href="{% url 'product-add' %}" class="btn btn-primary">➕ Yangi mahsulot</a>
         </div>
-
     </div>
 
     <div class="table-responsive">
@@ -29,8 +30,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.price }} so‘m</td>
-                    <td>{{ product.cost_price }} so‘m</td>
+                    <td>{{ product.price | intcomma }} so‘m</td>
+                    <td>{{ product.cost_price | intcomma}} so‘m</td>
                     <td>
                         {% if product.quantity > 0 %}
                             <span class="badge bg-success">{{ product.quantity }}</span>
@@ -44,7 +45,8 @@
                         {% else %}
                             <button class="btn btn-secondary btn-sm" disabled>❌ Tugagan</button>
                         {% endif %}
-                        <a href="{% url 'product-delete' product.pk %}" class="btn btn-outline-danger btn-sm">🗑 O‘chirish</a>
+                        <a href="{% url 'product-delete' product.pk %}" class="btn btn-outline-danger btn-sm"
+                           onclick="return confirm('Rostan o‘chirasizmi?');">🗑 O‘chirish</a>
                     </td>
                 </tr>
                 {% empty %}
