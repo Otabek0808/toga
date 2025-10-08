@@ -1,42 +1,44 @@
-    {% load static %}
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Do'kon{% endblock %}</title>
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}">
-    </head>
-    <body>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'product-list' %}">Do'kon</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'product-list' %}">Mahsulotlar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'product-add' %}">Yangi mahsulot</a></li>
-                    </ul>
-                    <form method="get" class="d-flex me-2">
-                        <input type="text" name="q" placeholder="Qidiruv..."
-                               class="form-control me-2"
-                               style="width:200px; border-radius: 0.25rem 0 0 0.25rem;">
-                        <button class="btn btn-outline-light" type="submit"
-                                style="border-radius: 0 0.25rem 0.25rem 0;">Qidirish</button>
-                    </form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Do'kon{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'product-list' %}">Do'kon</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                </div>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'product-list' %}">Mahsulotlar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'product-add' %}">Yangi mahsulot</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'sold-product-list' %}">Sotilganlar</a></li>
+                </ul>
+
+                <!-- Qidiruv formasi -->
+                <form method="get" class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center mt-2 mt-sm-0">
+                    <input type="text" name="q" placeholder="Qidiruv..."
+                           class="form-control mb-2 mb-sm-0 me-sm-2" style="min-width: 150px;" value="{{ request.GET.q }}">
+                    <button class="btn btn-outline-light w-100 w-sm-auto" type="submit">Qidirish</button>
+                </form>
             </div>
-        </nav>
-
-        <div class="container">
-            {% block content %}{% endblock %}
         </div>
+    </nav>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-    </html>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
