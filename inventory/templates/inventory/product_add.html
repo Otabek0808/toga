@@ -1,0 +1,56 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% load widget_tweaks %}   <!-- Shu qo‘shildi -->
+
+{% block title %}Yangi mahsulot qo'shish{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Yangi mahsulot qo'shish</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    Mahsulot formasi
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.price.label_tag }}
+                            {{ form.price|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.cost_price.label_tag }}
+                            {{ form.cost_price|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.description.label_tag }}
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Mahsulotni qo'shish</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-3 text-center">
+                <a href="{% url 'product-list' %}" class="btn btn-secondary">Orqaga</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

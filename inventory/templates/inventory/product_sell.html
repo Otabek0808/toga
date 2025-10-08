@@ -1,0 +1,13 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Mahsulotni sotish{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>💰 {{ product.name }} ni sotish</h2>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Sotish</button>
+        <a href="{% url 'product-list' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>
+{% endblock %}

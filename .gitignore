@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+.env
+*.sqlite3
+
+# Django
+db.sqlite3
+/staticfiles/
+media/
+
+# IDE va OS fayllari
+.vscode/
+.idea/
+.DS_Store
