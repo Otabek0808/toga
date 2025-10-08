@@ -2,64 +2,66 @@
 {% load humanize %}
 
 {% block title %}Sotilgan mahsulotlar{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>💵 Sotilgan mahsulotlar</h2>
         <a href="{% url 'product-list' %}" class="btn btn-secondary">⬅️ Orqaga</a>
     </div>
-<div class="row mb-4 text-center">
-    <div class="col-md-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Bugun</h5>
-                <p>{{ daily_count }} ta</p>
-                <p>Tannarxi: <b>{{ daily_cost }} so‘m</b></p>
-                <p>Sotilgan: <b>{{ daily_revenue }} so‘m</b></p>
-                <p class="text-success">Foyda: <b>{{ daily_profit }} so‘m</b></p>
+
+    <!-- Statistikalar -->
+    <div class="row mb-4 text-center">
+        <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Bugun</h5>
+                    <p>{{ daily_count }} ta</p>
+                    <p>Tannarxi: <b>{{ daily_cost|intcomma }} so‘m</b></p>
+                    <p>Sotilgan: <b>{{ daily_revenue|intcomma }} so‘m</b></p>
+                    <p class="text-success">Foyda: <b>{{ daily_profit|intcomma }} so‘m</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Oxirgi 7 kun</h5>
+                    <p>{{ weekly_count }} ta</p>
+                    <p>Tannarxi: <b>{{ weekly_cost|intcomma }} so‘m</b></p>
+                    <p>Sotilgan: <b>{{ weekly_revenue|intcomma }} so‘m</b></p>
+                    <p class="text-success">Foyda: <b>{{ weekly_profit|intcomma }} so‘m</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-6 mb-3 mb-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Oxirgi 30 kun</h5>
+                    <p>{{ monthly_count }} ta</p>
+                    <p>Tannarxi: <b>{{ monthly_cost|intcomma }} so‘m</b></p>
+                    <p>Sotilgan: <b>{{ monthly_revenue|intcomma }} so‘m</b></p>
+                    <p class="text-success">Foyda: <b>{{ monthly_profit|intcomma }} so‘m</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Umumiy statistika</h5>
+                    <p>Mahsulotlar soni: {{ total_count }} ta</p>
+                    <p>Tannarxi: <b>{{ total_cost|intcomma }} so‘m</b></p>
+                    <p>Sotilgan: <b>{{ total_revenue|intcomma }} so‘m</b></p>
+                    <p class="text-success">Foyda: <b>{{ total_profit|intcomma }} so‘m</b></p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Oxirgi 7 kun</h5>
-                <p>{{ weekly_count }} ta</p>
-                <p>Tannarxi: <b>{{ weekly_cost }} so‘m</b></p>
-                <p>Sotilgan: <b>{{ weekly_revenue }} so‘m</b></p>
-                <p class="text-success">Foyda: <b>{{ weekly_profit }} so‘m</b></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Oxirgi 30 kun</h5>
-                <p>{{ monthly_count }} ta</p>
-                <p>Tannarxi: <b>{{ monthly_cost }} so‘m</b></p>
-                <p>Sotilgan: <b>{{ monthly_revenue }} so‘m</b></p>
-                <p class="text-success">Foyda: <b>{{ monthly_profit }} so‘m</b></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h5>Umumiy statistika</h5>
-            <p>Mahsulotlar soni: {{ total_count }} ta</p>
-            <p>Tannarxi: <b>{{ total_cost }} so‘m</b></p>
-            <p>Sotilgan: <b>{{ total_revenue }} so‘m</b></p>
-            <p class="text-success">Foyda: <b>{{ total_profit }} so‘m</b></p>
-        </div>
-    </div>
-</div>
-
-</div>
-
-
+    <!-- Sotilgan mahsulotlar ro‘yxati -->
     <h4 class="mb-3">📋 Sotilganlar ro‘yxati</h4>
     <table class="table table-striped table-bordered shadow-sm align-middle">
         <thead class="table-dark">
@@ -76,17 +78,24 @@
             {% for sold in sold_products %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ sold.product.name }}</td>
-                <td>{{ sold.sold_price | intcomma }} so‘m</td>
-                <td>{{ sold.product.cost_price | intcomma }} so‘m</td>
-                <td class="{% if sold.profit > 0 %}text-success{% else %}text-danger{% endif %}">
-                    {{ sold.profit | intcomma }} so‘m
+                <td>
+                    {% if sold.product %}
+                        {{ sold.product.name }}
+                    {% else %}
+                        <i>{{ sold.product_name }}(Mahsulot o'chirildi)</i>
+                    {% endif %}
                 </td>
-
+                <td>{{ sold.sold_price|intcomma }} so‘m</td>
+                <td>{{ sold.cost_price|intcomma }} so‘m</td>
+                <td class="{% if sold.profit > 0 %}text-success{% else %}text-danger{% endif %}">
+                    {{ sold.profit|intcomma }} so‘m
+                </td>
                 <td>{{ sold.sold_at|date:"d.m.Y H:i" }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="6" class="text-center text-muted py-3">Sotilgan mahsulotlar yo‘q 😕</td></tr>
+            <tr>
+                <td colspan="6" class="text-center text-muted py-3">Sotilgan mahsulotlar yo‘q 😕</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>

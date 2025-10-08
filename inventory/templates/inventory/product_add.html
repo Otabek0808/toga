@@ -1,6 +1,6 @@
 {% extends 'inventory/base.html' %}
 {% load static %}
-{% load widget_tweaks %}   <!-- Shu qo‘shildi -->
+{% load widget_tweaks %}
 
 {% block title %}Yangi mahsulot qo'shish{% endblock %}
 
@@ -25,12 +25,12 @@
 
                         <div class="mb-3">
                             {{ form.price.label_tag }}
-                            {{ form.price|add_class:"form-control" }}
+                            {{ form.price|add_class:"form-control price-input" }}
                         </div>
 
                         <div class="mb-3">
                             {{ form.cost_price.label_tag }}
-                            {{ form.cost_price|add_class:"form-control" }}
+                            {{ form.cost_price|add_class:"form-control price-input" }}
                         </div>
 
                         <div class="mb-3">
@@ -53,4 +53,14 @@
         </div>
     </div>
 </div>
+
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.price-input').forEach(input => {
+    input.addEventListener('input', function (e) {
+    let cursorPosition = e.target.selectionStart;
+    let originalLength = e.target.value.length;
+    // Faqat raqamlarni qoldiramiz
+    let value = e.target.value.replace(/\D/g, "");
+    <!-- Silliq minglik ajratkich formatlash -->
 {% endblock %}
+
