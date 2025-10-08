@@ -3,11 +3,11 @@
 {% block content %}
 <div class="container mt-4">
     <!-- Sarlavha va tugmalar -->
-    <div class="mb-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
         <h2>📦 Mahsulotlar ro'yxati</h2>
-        <div class="d-flex flex-column">
-            <a href="{% url 'sold-product-list' %}" class="btn btn-dark mb-2">📊 Sotilganlar statistikasi</a>
-            <a href="{% url 'product-add' %}" class="btn btn-primary mb-2">➕ Yangi mahsulot</a>
+        <div class="d-flex flex-column flex-md-row mt-2 mt-md-0">
+            <a href="{% url 'sold-product-list' %}" class="btn btn-dark me-md-2 mb-2 mb-md-0">📊 Sotilganlar statistikasi</a>
+            <a href="{% url 'product-add' %}" class="btn btn-primary">➕ Yangi mahsulot</a>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
                             <span class="badge bg-danger">Qolmadi</span>
                         {% endif %}
                     </td>
-                    <td class="d-flex flex-column gap-2">
+                    <td class="d-flex flex-column flex-md-row gap-2">
                         {% if product.quantity > 0 %}
                             <a href="{% url 'product-sell' product.pk %}" class="btn btn-success btn-sm">💰 Sotish</a>
                         {% else %}
